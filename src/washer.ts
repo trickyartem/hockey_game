@@ -1,6 +1,7 @@
-import {game_field, canvas} from "./canvas";
-import {coordinates}        from "./player";
-import {player}             from "./player";
+import {game_field, canvas}  from "./canvas";
+import Player, {coordinates} from "./player";
+
+const player = new Player();
 
 export class Washer {
     public coordinates: coordinates = {
@@ -19,8 +20,8 @@ export class Washer {
         const {radius, speed} = this;
         const {field_coordinates} = game_field;
 
-        const left_edge = field_coordinates.x + game_field.width;
-        const right_edge = field_coordinates.x;
+        const left_edge = field_coordinates.x;
+        const right_edge = field_coordinates.x + game_field.width;
         const bottom_edge = field_coordinates.y + game_field.height;
         const upper_edge = field_coordinates.y;
 
@@ -51,13 +52,12 @@ export class Washer {
         c.closePath();
     }
 
-    resolveCollision(player: any) {
+    resolveCollision(player: Player) {
         const xVelocityDiff = this.speed.x - player.speed.x;
         const yVelocityDiff = this.speed.y - player.speed.y;
 
         const xDist = player.coordinates.x - this.coordinates.x;
         const yDist = player.coordinates.y - this.coordinates.y;
-
         if (xVelocityDiff * xDist + yVelocityDiff * yDist >= 0) {
 
             const angle = -Math.atan2(player.coordinates.y - this.coordinates.y, player.coordinates.x - this.coordinates.x);
@@ -69,16 +69,11 @@ export class Washer {
             const u2 = Washer.rotate(player.speed, angle);
 
             const v1 = {x: u1.x * (m1 - m2) / (m1 + m2) + u2.x * 2 * m2 / (m1 + m2), y: u1.y};
-            const v2 = {x: u2.x * (m1 - m2) / (m1 + m2) + u1.x * 2 * m2 / (m1 + m2), y: u2.y};
 
             const vFinal1 = Washer.rotate(v1, -angle);
-            const vFinal2 = Washer.rotate(v2, -angle);
 
             this.speed.x = vFinal1.x;
             this.speed.y = vFinal1.y;
-
-            player.speed.x = vFinal2.x;
-            player.speed.y = vFinal2.y;
         }
     }
 

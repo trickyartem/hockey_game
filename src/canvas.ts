@@ -13,14 +13,27 @@ class Canvas {
 }
 
 class Game_field {
-    public readonly field_coordinates: coordinates = {x: 0, y: 0};
+    public readonly field_coordinates: coordinates = {
+        x: (window.innerWidth / 2) - 250,
+        y: 100
+    };
     public width: number = 400;
     public height: number = 800;
-
-    constructor() {
-        this.field_coordinates.x = (window.innerWidth / 2) - 250;
-        this.field_coordinates.y = 100;
-    }
+    public left_edge = this.field_coordinates.x;
+    public right_edge = this.field_coordinates.x + this.width;
+    public bottom_edge = this.field_coordinates.y + this.height;
+    public upper_edge = this.field_coordinates.y;
+    public middle = this.field_coordinates.y + this.height / 2;
+    public upper_gates = {
+        x_left: this.field_coordinates.x + 150,
+        x_right: this.field_coordinates.x + 250,
+        y: this.upper_edge
+    };
+    public bottom_gates = {
+        x_left: this.field_coordinates.x + 150,
+        x_right: this.field_coordinates.x + 250,
+        y: this.bottom_edge
+    };
 
     display() {
         const {x, y} = this.field_coordinates;
@@ -29,18 +42,17 @@ class Game_field {
         c.beginPath();
         c.lineWidth = 7;
         c.strokeStyle = '#B2391F';
-        c.rect(x, y, this.width, this.height);
-        // c.moveTo(x, y);
-        // c.lineTo(x + 150, y);
-        // c.moveTo(x + 250, y);
-        // c.lineTo(x + this.wide, y);
-        // c.lineTo(x + this.wide, y + this.height);
-        // c.lineTo(x + 250, y + this.height);
-        // c.moveTo(x + 150, y + this.height);
-        // c.lineTo(x, y + this.height);
-        // c.lineTo(x, y);
-        c.moveTo(x, y + this.width);
-        c.lineTo(x + this.width, y + this.width);
+        c.moveTo(x, y);
+        c.lineTo(this.upper_gates.x_left, this.upper_edge);
+        c.moveTo(this.upper_gates.x_right, this.upper_edge);
+        c.lineTo(this.right_edge, this.upper_edge);
+        c.lineTo(this.right_edge, this.bottom_edge);
+        c.lineTo(this.bottom_gates.x_right, this.bottom_edge);
+        c.moveTo(this.bottom_gates.x_left, this.bottom_edge);
+        c.lineTo(x, this.bottom_edge);
+        c.lineTo(x, y);
+        c.moveTo(x, this.middle);
+        c.lineTo(this.right_edge, this.middle);
         c.stroke();
         c.closePath();
     }

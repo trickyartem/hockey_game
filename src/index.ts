@@ -1,15 +1,12 @@
-import {game_field, canvas} from "./canvas";
-import {player}             from "./player";
-import {Washer}             from "./washer";
+import {canvas} from "./canvas";
+import Game     from "./game";
 
-const washer = new Washer();
+const game = new Game();
 
 const animate = () => {
     canvas.c.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-    game_field.display();
-    player.display();
-    washer.display();
+    game.update();
     requestAnimationFrame(animate);
 };
 

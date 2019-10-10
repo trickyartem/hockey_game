@@ -40,8 +40,8 @@ export default class Washer {
 
     reset() {
         this.coordinates = {
-            x: game_field.field_coordinates.x + game_field.width / 2,
-            y: game_field.field_coordinates.y + game_field.height / 2
+            x: game_field.center.x,
+            y: game_field.center.y
         };
         this.speed = {x: 0, y: 0};
     }

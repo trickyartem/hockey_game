@@ -7,6 +7,7 @@ class Canvas {
     constructor() {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
+        this.c.font = "200px Georgia";
 
         document.body.appendChild(this.canvas);
     }
@@ -19,6 +20,10 @@ class Game_field {
     };
     public width: number = 400;
     public height: number = 800;
+    public center = {
+        x: this.field_coordinates.x + this.width / 2,
+        y: this.field_coordinates.y + this.height / 2
+    };
     public left_edge = this.field_coordinates.x;
     public right_edge = this.field_coordinates.x + this.width;
     public bottom_edge = this.field_coordinates.y + this.height;

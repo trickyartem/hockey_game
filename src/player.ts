@@ -20,7 +20,7 @@ export default class Player {
 
     constructor() {
         addEventListener('mousemove', e => {
-            this.coordinates.y = e.clientY;
+            this.coordinates.y = e.clientY - this.radius;
             this.coordinates.x = e.clientX;
 
             const {x, y} = this.coordinates;

@@ -1,8 +1,18 @@
 import {canvas} from "./canvas";
 import Game     from "./game";
+import Player from "./player";
+import Washer from "./washer";
+import Bot from "./bot";
 
-const game = new Game();
+const player = new Player();
+const washer = new Washer();
+const bot = new Bot();
 
+const game = new Game(
+  player,
+  washer,
+  bot
+);
 
 const animate = () => {
     canvas.c.fillStyle = 'rgba(225, 225, 225, 0.3)';
